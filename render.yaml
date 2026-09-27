@@ -76,7 +76,6 @@ services:
   - type: web
     name: amanat-dashboard
     runtime: static
-    plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
@@ -92,4 +91,4 @@ services:
       - key: VITE_API_URL
         value: https://amanat-gateway.onrender.com
       - key: VITE_AGENT_URL
-        value: https://amanat-agent.onrender.com
+        value: https://amanat-agent.onrender.com
