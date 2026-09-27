@@ -1,0 +1,13 @@
+{
+  "name": "amanat",
+  "private": true,
+  "scripts": {
+    "local-demo": "bash scripts/local-demo.sh",
+    "dashboard": "npm --prefix frontend run dev",
+    "dashboard:build": "npm --prefix frontend run build",
+    "gateway": "npm --prefix services/gateway run dev",
+    "gateway:start": "npm --prefix services/gateway run start",
+    "agent": "python -m uvicorn app.main:app --app-dir services/agent --reload --port 8000",
+    "agent:test": "python -m pytest services/agent/tests"
+  }
+}

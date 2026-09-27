@@ -1,0 +1,95 @@
+services:
+  - type: web
+    name: amanat-gateway
+    runtime: node
+    plan: free
+    rootDir: services/gateway
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: ACTIVE_CHAIN
+        value: base-sepolia
+      - key: ACTIVE_CHAINS
+        value: base-sepolia,arbitrum-sepolia
+      - key: CORS_ORIGIN
+        value: https://amanat-dashboard.onrender.com
+      - key: BASE_SEPOLIA_RPC_URL
+        value: https://sepolia.base.org
+      - key: ARBITRUM_SEPOLIA_RPC_URL
+        value: https://sepolia-rollup.arbitrum.io/rpc
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB
+        value: Amanat
+      - key: ALLOW_MEMORY_DB
+        value: "false"
+      - key: INTERNAL_API_KEY
+        sync: false
+      - key: PUBLIC_GATEWAY_URL
+        value: https://amanat-gateway.onrender.com
+      - key: VALIDATOR_URL
+        value: https://amanat-agent.onrender.com
+      - key: SELLER_ATMOS_KEY
+        sync: false
+      - key: SELLER_FORGE_KEY
+        sync: false
+      - key: SELLER_SHAKY_KEY
+        sync: false
+      - key: SELLER_MERIDIAN_KEY
+        sync: false
+
+  - type: web
+    name: amanat-agent
+    runtime: python
+    plan: free
+    rootDir: services/agent
+    buildCommand: pip install -r requirements.txt
+    startCommand: python3 -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: ACTIVE_CHAIN
+        value: base-sepolia
+      - key: ACTIVE_CHAINS
+        value: base-sepolia,arbitrum-sepolia
+      - key: CORS_ORIGIN
+        value: https://amanat-dashboard.onrender.com
+      - key: BASE_SEPOLIA_RPC_URL
+        value: https://sepolia.base.org
+      - key: ARBITRUM_SEPOLIA_RPC_URL
+        value: https://sepolia-rollup.arbitrum.io/rpc
+      - key: GATEWAY_URL
+        value: https://amanat-gateway.onrender.com
+      - key: PUBLIC_GATEWAY_URL
+        value: https://amanat-gateway.onrender.com
+      - key: ORACLE_URL
+        value: https://amanat-agent.onrender.com
+      - key: INTERNAL_API_KEY
+        sync: false
+      - key: VALIDATOR_KEY
+        sync: false
+      - key: BUYER_AGENT_KEY
+        sync: false
+
+  - type: web
+    name: amanat-dashboard
+    runtime: static
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        value: https://amanat-gateway.onrender.com
+      - key: VITE_AGENT_URL
+        value: https://amanat-agent.onrender.com

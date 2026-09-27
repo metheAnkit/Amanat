@@ -1,0 +1,29 @@
+# Secrets
+.env
+.env.*
+
+# Dependencies and generated output
+node_modules/
+frontend/dist/
+frontend/.vite/
+__pycache__/
+.pytest_cache/
+*.pyc
+venv/
+.venv/
+
+# Foundry
+contracts/cache/
+contracts/out/
+contracts/lib/
+contracts/broadcast/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor and OS junk
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

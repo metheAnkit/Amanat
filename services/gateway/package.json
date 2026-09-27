@@ -1,0 +1,20 @@
+{
+  "name": "amanat-gateway",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "keys": "node scripts/keys.mjs",
+    "check-mongodb": "node scripts/check-mongodb.mjs",
+    "deploy": "node scripts/deploy.mjs",
+    "bootstrap": "node scripts/bootstrap.mjs"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.3.1",
+    "express": "^5.1.0",
+    "mongoose": "^8.19.1",
+    "viem": "^2.37.5"
+  }
+}

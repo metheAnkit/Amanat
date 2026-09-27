@@ -1,0 +1,12 @@
+{
+  "mandateId": 1,
+  "owner": "0xdE6aF82e97aDA179a11181F2EdA5B14304beE21D",
+  "buyerAgent": "0x32b05D9032ED3C2e268c1f2746D15A93F55b7d67",
+  "sellers": {
+    "atmos": "0x563B3b8B2DF5384e9862d4239Ef7e893476eBA5e",
+    "forge": "0xD4f889654B8a5C9B270FdBb2F749CE098f68e750",
+    "shaky": "0x6F7C9e7fA246879D3018fe310537E8e331b66978",
+    "meridian": "0x27CEEAbb4cD253fd0fd16DB8589CD6D69E848464"
+  },
+  "validator": "0x46fB29d86360A767c1d715b70b72e3d270d1bCaE"
+}
