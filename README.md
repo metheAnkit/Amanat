@@ -4,7 +4,7 @@
 
 **Mandate · Escrow · Validate**
 
-An accountability layer for AI-agent spending — so users can delegate real money without trusting the agent with their keys.
+An accountability layer for AI-agent spending – so users can delegate real money without trusting the agent with their keys.
 
 [![Solidity](https://img.shields.io/badge/Solidity-0.8.28-363636?logo=solidity)](https://soliditylang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-20+-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
@@ -20,7 +20,7 @@ An accountability layer for AI-agent spending — so users can delegate real mon
 
 ## The Problem
 
-Protocols like **x402** let agents pay APIs autonomously. **ERC-8004** gives them on-chain identity. NPCI is preparing to let them transact on UPI. But when a seller returns garbage — or the agent itself misbehaves — **there is no recourse**. Without recourse, users will not delegate real money.
+Protocols like **x402** let agents pay APIs autonomously. **ERC-8004** gives them on-chain identity. NPCI is preparing to let them transact on UPI. But when a seller returns garbage – or the agent itself misbehaves – **there is no recourse**. Without recourse, users will not delegate real money.
 
 ## How Amanat Solves It
 
@@ -31,10 +31,10 @@ User ──► MandateVault ──► Agent ──► Escrow ──► Validator
           (caps & rules)           (holds funds)  (re-executes)  (release / refund)
 ```
 
-1. **Mandate** — The user funds a vault with per-transaction and daily caps, an approved-seller whitelist, and an expiry. The agent can never exceed these limits.
-2. **Escrow** — Every payment is held in escrow with a challenge window before release.
-3. **Validation** — An independent validator re-executes or evaluates the seller's output. Bad work triggers an automatic refund.
-4. **Reputation** — ERC-8004 reputation scores update on every validation outcome, creating a portable trust signal for the agent economy.
+1. **Mandate** – The user funds a vault with per-transaction and daily caps, an approved-seller whitelist, and an expiry. The agent can never exceed these limits.
+2. **Escrow** – Every payment is held in escrow with a challenge window before release.
+3. **Validation** – An independent validator re-executes or evaluates the seller's output. Bad work triggers an automatic refund.
+4. **Reputation** – ERC-8004 reputation scores update on every validation outcome, creating a portable trust signal for the agent economy.
 
 ---
 
@@ -47,11 +47,11 @@ amanat/
 │       ├── MandateVault.sol      # Per-tx cap, daily cap, approved sellers, expiry
 │       └── AmanatEscrow.sol      # Challenge-window escrow with validator resolution
 ├── services/
-│   ├── gateway/            # Node.js + Express — x402 paywall, receipts API, MongoDB
+│   ├── gateway/            # Node.js + Express – x402 paywall, receipts API, MongoDB
 │   │   ├── src/server.js
 │   │   ├── src/receipts.js
 │   │   └── scripts/              # deploy.mjs, bootstrap.mjs, keys.mjs
-│   └── agent/              # Python + FastAPI — buyer agent & validator logic
+│   └── agent/              # Python + FastAPI – buyer agent & validator logic
 │       └── app/
 │           ├── main.py
 │           └── validator.py      # Pure, deterministic, pytestable
@@ -78,7 +78,7 @@ amanat/
 - **Node.js** ≥ 20
 - **Python** ≥ 3.11
 - **Foundry** (install via `curl -L https://foundry.paradigm.xyz | bash && foundryup`)
-- **MongoDB** (optional for local dev — set `ALLOW_MEMORY_DB=true`)
+- **MongoDB** (optional for local dev – set `ALLOW_MEMORY_DB=true`)
 
 ### One-command launch (WSL / Linux / macOS)
 
@@ -129,7 +129,7 @@ Click **"Run live demo"** to watch the mandate balance, receipts, reputation sco
 ```bash
 # 1. Generate wallet keys
 cd services/gateway && npm run keys
-# Copy the output into .env — never commit private keys
+# Copy the output into .env – never commit private keys
 
 # 2. Fund wallets
 #    - Owner + deployer: testnet ETH from faucet
@@ -160,10 +160,10 @@ The included `render.yaml` deploys three services:
 ```
 
 Set these **secrets** in Render's dashboard (marked `sync: false` in the YAML):
-- `MONGODB_URI` — your Atlas connection string
-- `INTERNAL_API_KEY` — shared key between gateway and agent
-- `SELLER_*_KEY` — four seller wallet private keys
-- `VALIDATOR_KEY`, `BUYER_AGENT_KEY` — agent wallet keys
+- `MONGODB_URI` – your Atlas connection string
+- `INTERNAL_API_KEY` – shared key between gateway and agent
+- `SELLER_*_KEY` – four seller wallet private keys
+- `VALIDATOR_KEY`, `BUYER_AGENT_KEY` – agent wallet keys
 
 ### USDC Contract Addresses
 
@@ -181,10 +181,10 @@ Set these **secrets** in Render's dashboard (marked `sync: false` in the YAML):
 ### MandateVault
 
 The owner creates a mandate with:
-- **Per-transaction cap** — maximum USDC per single payment
-- **Daily cap** — rolling 24h spending limit
-- **Approved sellers** — whitelist of addresses the agent can pay
-- **Expiry** — mandate auto-expires after the set timestamp
+- **Per-transaction cap** – maximum USDC per single payment
+- **Daily cap** – rolling 24h spending limit
+- **Approved sellers** – whitelist of addresses the agent can pay
+- **Expiry** – mandate auto-expires after the set timestamp
 
 Only the designated **agent address** can call `authorizePayment`. Funds move directly into the escrow contract.
 
@@ -200,7 +200,7 @@ Both contracts use reentrancy guards and checked transfers.
 
 ## API Reference
 
-### Gateway (`services/gateway` — port 4000)
+### Gateway (`services/gateway` – port 4000)
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -210,7 +210,7 @@ Both contracts use reentrancy guards and checked transfers.
 | `POST` | `/api/receipts` | Store a new receipt |
 | `GET` | `/pay/:sellerId` | x402-style payment challenge (returns 402) |
 
-### Agent (`services/agent` — port 8000)
+### Agent (`services/agent` – port 8000)
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -239,10 +239,10 @@ See [`.env.example`](.env.example) for the full template. Key variables:
 
 ## Security Notes
 
-- **Never commit `.env`** — it is gitignored. Use `.env.example` as a template.
-- **Contracts are unaudited** — this is a hackathon demo, not production software.
+- **Never commit `.env`** – it is gitignored. Use `.env.example` as a template.
+- **Contracts are unaudited** – this is a hackathon demo, not production software.
 - **Rotate any leaked credentials** immediately, including MongoDB passwords.
-- **Use only testnet funds** — do not deposit real assets into unaudited contracts.
+- **Use only testnet funds** – do not deposit real assets into unaudited contracts.
 
 ---
 
@@ -261,14 +261,14 @@ curl http://localhost:4000/health
 
 ---
 
-## Built For
+## 📄 License
 
-**Hacker House Goa 2026** — demonstrating how AI agents can be given bounded spending mandates with on-chain accountability.
+Copyright © 2026 Ankit and Amanat contributors. All rights reserved.
 
 ---
 
 <div align="center">
 
-**Amanat** — Give your AI agent a budget, not your wallet.
+**Amanat** – Give your AI agent a budget, not your wallet.
 
 </div>
